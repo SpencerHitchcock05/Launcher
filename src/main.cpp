@@ -9,8 +9,8 @@ int main(int, char**) {
         return 1;
     }
 
-    SDL_Window *win = SDL_CreateWindow("Launcher", SDL_WINDOWPOS_CENTERED, 
-        SDL_WINDOWPOS_CENTERED, 640, 480, SDL_WINDOW_RESIZABLE);
+    SDL_Window *win = SDL_CreateWindow("Launcher", SDL_WINDOWPOS_UNDEFINED, 
+        SDL_WINDOWPOS_UNDEFINED, 640, 480, SDL_WINDOW_FULLSCREEN);
 
     SDL_Renderer *ren = SDL_CreateRenderer(win, -1, SDL_RENDERER_ACCELERATED | SDL_RENDERER_PRESENTVSYNC);
 
@@ -22,8 +22,6 @@ int main(int, char**) {
 
     SDL_RenderSetLogicalSize(ren, 640, 480);
 
-    SDL_Rect box{300, 220, 40, 40};
-
     bool running = true;
     while (running) {
         SDL_Event event;
@@ -33,24 +31,8 @@ int main(int, char**) {
             }
         }
 
-        const Uint8 *state = SDL_GetKeyboardState(NULL);
-        if (state[SDL_SCANCODE_UP]) {
-            box.y -= 5;
-        }
-        if (state[SDL_SCANCODE_DOWN]) {
-            box.y += 5;
-        }
-        if (state[SDL_SCANCODE_LEFT]) {
-            box.x -= 5;
-        }
-        if (state[SDL_SCANCODE_RIGHT]) {
-            box.x += 5;
-        }   
-
         SDL_SetRenderDrawColor(ren, 0, 0, 0, 255);  
         SDL_RenderClear(ren);
-        SDL_SetRenderDrawColor(ren, 255, 0, 0, 255);
-        SDL_RenderFillRect(ren, &box);
         SDL_RenderPresent(ren);
     }
 
